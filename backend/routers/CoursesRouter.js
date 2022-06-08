@@ -9,7 +9,7 @@ coursesRouter.get('/', async (req, res) => {
 
 coursesRouter.get('/user/:userId', async (req, res) => {
     let userId = req.params.userId;
-    let user = await models.Car.findById(userId);
+    let user = await models.User.findById(userId);
     res.status(200).send(user);
 });
 
@@ -34,8 +34,8 @@ coursesRouter.post('/', async (req, res) => {
 coursesRouter.post('/enroll', async (req, res) => {
     const {userId, courseId} = req.body;
 
-    let course = await models.Car.findById(courseId);
     let user = await models.User.findById(userId);
+    let course = await models.Course.findById(courseId);
     course.enrolledStudents.push(user)
 
     await models.Course.findByIdAndUpdate(courseId, course);

@@ -48,7 +48,6 @@ let loadCourses = () => {
                             <div class="course_description">${response[i].description}</div>
                         </div>
                     `)
-
                 }
  
             }

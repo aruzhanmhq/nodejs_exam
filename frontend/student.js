@@ -11,20 +11,13 @@ let loadTeachers = () => {
         url: `http://localhost:8080/users`,
         method: 'get',
         success: (response) => {
-            console.log(response)
-            // localStorage.setItem("users", JSON.stringify(response))
-            
-
             for(let i = 0; i < response.length; i++){
                 if(response[i].roleId == 1){
                     teachersSelect.append(`
                         <option value="${response[i]._id}">${response[i].fullName}</option>
                     `)
-
                 }
-
-            }
-            
+            } 
         }
     }
 
@@ -42,14 +35,14 @@ let loadCourses = () => {
         success: (response) => {
             localStorage.setItem("courses", JSON.stringify(response))
             coursesBlock.empty()
-            console.log(response)
 
             for(let i = 0; i < response.length; i++){
                 coursesBlock.append(`
                     <div onclick="showCourse(${i})" class="course">     
                         <div class="course_title"><b>${response[i].title}</b></div>
                         <div class="course_description">${response[i].description}</div>
-                        <div class="course_description">Teacher: ${response[i].owner.fullName}</div>
+                        <div class="course_description">Owner: ${response[i].owner.fullName}</div>
+
                     </div>
                 `)
             }
@@ -67,12 +60,11 @@ filterBtn.click(() => {
 
     for(let i = 0; i < courses.length; i++){
         if(courses[i].owner._id == teachersSelect.val()){
-            // console.log(courses[i])
             courseBlock.append(`
                 <div class="course">
                     <div class="course_title"><b>${courses[i].title}</b></div>
                     <div class="course_description">${courses[i].description}</div>
-                    <div class="course_description">Teacher: ${courses[i].owner.fullName}</div>
+                    <div class="course_description">Owner: ${courses[i].owner.fullName}</div>
                 </div>
             `)
         }
